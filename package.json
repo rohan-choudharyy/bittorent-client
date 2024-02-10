@@ -1,0 +1,22 @@
+{
+  "name": "bittorent-client",
+  "version": "1.0.0",
+  "description": "sample bittorent client to learn about how it works",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "nodetorrent"
+  },
+  "author": "Rohan Choudhary",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "dependencies": {
+    "bencode": "^4.0.0"
+  }
+}
