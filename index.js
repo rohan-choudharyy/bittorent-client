@@ -1,17 +1,18 @@
-'use strict';
-import fs from "fs";
-import bencode from "bencode";
-import dgram from "dgram";
-import {Buffer} from "buffer";
-import url from "URL";
+import fs from 'fs/promises';
+import bencode from 'bencode';
+import tracker from './tracker.js';
 
-const torrent = bencode.decode(fs.readFileSync("sample.torrent"));
-const Url = URL(torrent.announce.toString('utf8'));
+async function main() {
+  try {
+    const torrentData = await fs.readFile('puppy.torrent');
+    const torrent = bencode.decode(torrentData);
 
-const socket = dgram.createSocket('udp4');
-const myMsg = Buffer.from('This is a test!', 'utf8');
-socket.send(myMsg, 0, myMsg.length, url.port, url.host, () => {});
-socket.on('message', msg => {
-  console.log('message is', msg);
-});
+    await tracker.getPeers(torrent, (peers) => {
+      console.log('List of peers: ', peers);
+    });
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
 
+main();
